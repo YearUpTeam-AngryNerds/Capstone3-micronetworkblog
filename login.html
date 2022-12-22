@@ -4,63 +4,96 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login to the Microblog Network</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-        <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    
-         <!-- Index CSS apply to all pages  -->
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="icon" type="image/x-icon" href="">
 
-    <!-- Page specific CSS -->
-    <link rel="stylesheet" href="css/index.css">
-
-    <!-- Run BEFORE page is finished loading (before window.onload): -->
-    <script src="/auth.js"></script>
-    <script>
-        if (isLoggedIn() === true) window.location.replace("/posts.html");
-    </script>
 </head>
+
 <body>
 
     <header>
-        <h1>Welcome to YOUR MICROBLOG NETWORK</h1>
+        <!--Navbar-->
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="login.html">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="registration.html">Registration</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="posts.html">Posts</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="profile.html">Profile</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <h1>Welcome to Angry Nerds</h1>
+        <p>Angry Nerds was created to give people the ability to openly express their feelings, connect with others throughout the world and serve public conversation. </p>
     </header>
 
     <main>
-    <div class = "container">
+        <div class="container">
 
-    <form id="login">
-            <div>
-                <label for="username">Username</label>
-                <input type="text" id="username" minlength="3">
-            </div>
+            <form id="login">
+                <div>
+                    <label for="username">Username</label>
+                    <input type="text" id="username" minlength="3">
+                </div>
 
-            <div>
-                <label for="password">Password</label>
-                <input type="password" id="password" minlength="6">
-            </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password" id="password" minlength="6">
+                </div>
 
-            <button id="loginButton" type="submit">Login</button>
-        </form>
+                <button id="loginButton" class="btn btn-outline-primary" type="submit">Login</button>
+            </form>
 
-    </div>
-</main>
+        </div>
+    </main>
 
-<footer></footer>
+    <footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-    crossorigin="anonymous"></script>
+        <script src="scripts/index.js"></script>
+
+        <!-- Run BEFORE page is finished loading (before window.onload): -->
+        <script src="/auth.js"></script>
+        <script>
+            if (isLoggedIn() === true) window.location.replace("/posts.html");
+        </script>
+
+    </footer>
 
 
-    <!-- Page specific code -->
-<script src="scripts/index.js"></script>
 </body>
+
 </html>
