@@ -2,17 +2,14 @@
 
 "use strict";
 
-window.onload = init;
+window.onload = function () {
 
-function init() {
-    getLoginData();
     //get the button that logs out the user and execute that functionality when clicked
     document.getElementById("logoutButton").onclick = logout;
-
     displayContent();
 }
 function displayContent() {
-    // The starter function should return an object with the token propert since the user is logged in
+    // The starter function should return an object with the token property since the user is logged in
     const bodyData = {
         method: "GET",
         headers: {
@@ -25,27 +22,49 @@ function displayContent() {
         .then(allData => {
             //allData is the parent object
             const allPosts = allData.posts;
-            //Access the posts property, which stores an array with ONE element, another object
-            for (let post in allPosts) {
+            //Access the posts property, which stores an array of objects, each holding data of one post
+            for (let post of allPosts) {
                 // for each post created, add the elements it needs
-                createPostStructure(post);
+                createPostElements(post);
             }
         })
 }
 
-function createPostStructure(post) {
+function createPostElements(post) {
     // create the elements to display the post
     const postDiv = document.createElement("div");
-    const usernamePara = document.createElement("p");
-    const textPara = document.createElement("p");
-    const datePosted = document.createElement("p");
+    const usernameRow = document.createElement("div");
+    const textPostRow = document.createElement("div");
+    const dateANDLikesRow = document.createElement("div");
+    const datesCol = document.createElement("div");
+    const likesCol = document.createElement("div");
+
+    // Give the elements their proper attributes
+    postDiv.classList.add("row");
+    postDiv.id = post["_id"];
+    usernameRow.classList.add("row");
+    usernameRow.id = post["username"]+ post["_id"];
+    textPostRow.classList.add("row");
+    textPostRow.id = `textPost${post["_id"]}`;
+    dateANDLikesRow.classList.add("row");
+    dateANDLikesRow.id = "dateAndLikes" + post["_id"];
+    datesCol.className = "col-5 col-md-4 p-0";
+    datesCol.id = "dateFor" + post["_id"];
+    likesCol.className = "col ms-5";
+    likesCol.id = "likesFor" + post["_id"];
 
     // Where they should fit in the HTML
-    postDiv.appendChild(usernamePara);
-    postDiv.appendChild(textPara);
-    postDiv.appendChild(datePosted);
+    dateANDLikesRow.append(datesCol);
+    dateANDLikesRow.append(likesCol);
+    postDiv.appendChild(usernameRow);
+    postDiv.appendChild(textPostRow);
+    postDiv.appendChild(dateANDLikesRow);
+   
+    fillContentIntoDivs(usernameRow, textPostRow, dateANDLikesRow, datesCol, likesCol);
     // the parent DIV where all the posts are going to be nested in
     document.getElementById("displayPosts_ALLUsers").appendChild(postDiv);
+
+    
 
     // each post has 5 properties, only showing user, text, data 
     for (let details in post) {
@@ -65,6 +84,10 @@ function createPostStructure(post) {
                 break;
         }
     }
+}
+
+function fillContentIntoDivs(){
+
 }
 
 function likesDropdown(postDiv, likesProperty) {
