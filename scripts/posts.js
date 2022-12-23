@@ -43,7 +43,7 @@ function createPostElements(post) {
     postDiv.classList.add("row");
     postDiv.id = post["_id"];
     usernameRow.classList.add("row");
-    usernameRow.id = post["username"]+ post["_id"];
+    usernameRow.id = post["username"] + post["_id"];
     textPostRow.classList.add("row");
     textPostRow.id = `textPost${post["_id"]}`;
     dateANDLikesRow.classList.add("row");
@@ -59,47 +59,45 @@ function createPostElements(post) {
     postDiv.appendChild(usernameRow);
     postDiv.appendChild(textPostRow);
     postDiv.appendChild(dateANDLikesRow);
-   
-    fillContentIntoDivs(usernameRow, textPostRow, dateANDLikesRow, datesCol, likesCol);
+
+    fillContentIntoDivs(post, usernameRow, textPostRow, datesCol, likesCol);
+
     // the parent DIV where all the posts are going to be nested in
     document.getElementById("displayPosts_ALLUsers").appendChild(postDiv);
+}
 
-    
-
-    // each post has 5 properties, only showing user, text, data 
+// each post is an object
+function fillContentIntoDivs(post, usernameRow, textPostRow, datesCol, likesCol) {
     for (let details in post) {
         switch (details) {
             case "text":
-                textPara.innerHTML = post.details;
+                usernameRow.innerHTML = post.details;
                 break;
             case "username":
-                usernamePara.innerHTML = post.details;
+                textPostRow.innerHTML = post.details;
                 break;
             case "createdAt":
-                const date = new Date(post.details)
-                datePosted.innerHTML = `${date.getMonth() + 1}/${date.getDate() + 1}/${date.getYear()} at ${date.getHours()}:${date.getMinutes()}`;
+                const date = new Date(post.details);
+                datesCol.innerHTML = `Posted ${date.toLocaleDateString()} at ${date.toLocaleTimeString()}(UTC Time)`;
                 break;
             case "likes":
-                likesDropdown(postDiv, post.details);
+                likesDropdown(post, likesCol);
                 break;
         }
     }
 }
 
-function fillContentIntoDivs(){
+function likesDropdown(post, likesCol) {
 
-}
-
-function likesDropdown(postDiv, likesProperty) {
-    const likesDropdown = document.createElement("select");
-    likesDropdown.className = "form-control w-25";
-    const firstOption = new Option("Liked from...", "");
+    const listUsersLiked = document.createElement("select");
+    listUsersLiked.className = "form-control ms-5";
+    const firstOption = new Option("Liked from:", "");
     firstOption.disabled = true;
     firstOption.selected = true;
-    likesDropdown.appendChild(firstOption);
-    for (let x of likesProperty) {
-        let likedUser = new Option(x.username, x._id);
-        likesDropdown.appendChild(likedUser);
+    listUsersLiked.appendChild(firstOption);
+    for (let user of post["likes"]) {
+        let userLiked = new Option(user.username, user._id);
+        listUsersLiked.appendChild(userLiked);
     }
-    postDiv.appendChild(likesDropdown);
+    likesCol.appendChild(listUsersLiked);
 }
