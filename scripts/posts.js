@@ -33,15 +33,19 @@ function displayContent() {
 
 function createPostElements(post) {
     // create the elements to display the post
-    const postDiv = document.createElement("div");
-    const usernameRow = document.createElement("div");
-    const textPostRow = document.createElement("div");
-    const dateANDLikesRow = document.createElement("div");
-    const datesCol = document.createElement("div");
-    const likesCol = document.createElement("div");
-    const includeDeleteCol =  document.createElement("div");
-    const deleteButton = document.createElement("button");
-    
+    const postDiv = document.createElement("div"),
+        usernameRow = document.createElement("div"),
+        textPostRow = document.createElement("div"),
+        dateANDLikesRow = document.createElement("div"),
+        datesCol = document.createElement("div"),
+        likesDropdownCol = document.createElement("div"),
+        deleteAndLikeRow = document.createElement("div"),
+        deleteButtonCol = document.createElement("div"),
+        emptySpaceCol = document.createElement("div"),
+        likeButtonCol = document.createElement("div"),
+        deleteButton = document.createElement("button"),
+        likeButton = document.createElement("button");
+
 
     // Give the elements their pclasses
     postDiv.classList.add("row");
@@ -58,29 +62,45 @@ function createPostElements(post) {
 
     datesCol.className = "col-5 col-md-4 p-0";
     datesCol.id = "dateFor" + post["_id"];
-    likesCol.className = "col ms-5";
-    likesCol.id = "likesFor" + post["_id"];
+    likesDropdownCol.className = "col ms-5";
+    likesDropdownCol.id = "likesFor" + post["_id"];
 
-    includeDeleteCol.className = "col-3";
-    includeDeleteCol.id = `columnToDelete${post["_id"]}`
-    deleteButton.className = "btn btn-danger my-1";
+    deleteAndLikeRow.className = "row my-1";
+    deleteAndLikeRow.id = `columnToDelete${post["_id"]}`;
+
+    deleteButtonCol.className = "col-3";
+    likeButtonCol.className = "col-1";
+    emptySpaceCol.className = "col";
+
+
+    deleteButton.className = "btn btn-danger";
     deleteButton.type = "button";
     deleteButton.style.margin = "-1 em";
-    deleteButton.id = `deleteButtonFor${post["_id"]};`
+    deleteButton.id = `deleteButtonFor${post["_id"]};`;
+
+    likeButton.className = "btn btn-info";
+    likeButton.type = "button";
+    likeButton.id = `likeButtonFor${post["_id"]}`;
 
     // Where they should fit in the HTML
-    includeDeleteCol.appendChild(deleteButton);
+    deleteButtonCol.appendChild(deleteButton);
+    likeButtonCol.appendChild(likeButton);
+    deleteAndLikeRow.appendChild(deleteButtonCol);
+    deleteAndLikeRow.appendChild(emptySpaceCol);
+    deleteAndLikeRow.appendChild(likeButtonCol);
+
     dateANDLikesRow.append(datesCol);
-    dateANDLikesRow.append(likesCol);
+    dateANDLikesRow.append(likesDropdownCol);
     postDiv.appendChild(usernameRow);
     postDiv.appendChild(textPostRow);
     postDiv.appendChild(dateANDLikesRow);
-    postDiv.appendChild(includeDeleteCol);
+    postDiv.appendChild(deleteAndLikeRow);
 
-    fillContentIntoDivs(post, usernameRow, textPostRow, datesCol, likesCol);
+    fillContentIntoDivs(post, usernameRow, textPostRow, datesCol, likesDropdownCol);
 
     // the parent DIV where all the posts are going to be nested in
     document.getElementById("displayPosts_ALLUsers").appendChild(postDiv);
+
 
     // adding the functionality to delete ANY post 
     document.getElementById(deleteButton.id).onclick = function () {
@@ -88,10 +108,11 @@ function createPostElements(post) {
             method: "DELETE"
         });
     }
+
 }
 
 // each post is an object
-function fillContentIntoDivs(post, usernameRow, textPostRow, datesCol, likesCol) {
+function fillContentIntoDivs(post, usernameRow, textPostRow, datesCol, likesDropdownCol) {
     for (let details in post) {
         switch (details) {
             case "text":
@@ -105,14 +126,14 @@ function fillContentIntoDivs(post, usernameRow, textPostRow, datesCol, likesCol)
                 datesCol.innerHTML = `Posted ${date.toLocaleDateString()} at ${date.toLocaleTimeString()}(UTC Time)`;
                 break;
             case "likes":
-                likesDropdown(post, likesCol);
+                likesDropdown(post, likesDropdownCol);
                 break;
         }
     }
 }
 
-function likesDropdown(post, likesCol) {
-
+function likesDropdown(post, likesDropdownCol) {
+    // add the dropdown when the likes property is found in the post object
     const listUsersLiked = document.createElement("select");
     listUsersLiked.className = "form-control ms-5";
     const firstOption = new Option("Liked from:", "");
@@ -123,5 +144,5 @@ function likesDropdown(post, likesCol) {
         let userLiked = new Option(user.username, user._id);
         listUsersLiked.appendChild(userLiked);
     }
-    likesCol.appendChild(listUsersLiked);
+    likesDropdownCol.appendChild(listUsersLiked);
 }
