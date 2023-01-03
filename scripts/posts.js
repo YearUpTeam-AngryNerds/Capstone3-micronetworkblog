@@ -6,6 +6,7 @@ window.onload = function () {
 
     //get the button that logs out the user and execute that functionality when clicked
     document.getElementById("logoutButton").onclick = logout;
+    //display all posts
     displayContent();
 }
 function displayContent() {
@@ -38,32 +39,55 @@ function createPostElements(post) {
     const dateANDLikesRow = document.createElement("div");
     const datesCol = document.createElement("div");
     const likesCol = document.createElement("div");
+    const includeDeleteCol =  document.createElement("div");
+    const deleteButton = document.createElement("button");
+    
 
-    // Give the elements their proper attributes
+    // Give the elements their pclasses
     postDiv.classList.add("row");
     postDiv.id = post["_id"];
+
     usernameRow.classList.add("row");
     usernameRow.id = post["username"] + post["_id"];
+
     textPostRow.classList.add("row");
     textPostRow.id = `textPost${post["_id"]}`;
+
     dateANDLikesRow.classList.add("row");
     dateANDLikesRow.id = "dateAndLikes" + post["_id"];
+
     datesCol.className = "col-5 col-md-4 p-0";
     datesCol.id = "dateFor" + post["_id"];
     likesCol.className = "col ms-5";
     likesCol.id = "likesFor" + post["_id"];
 
+    includeDeleteCol.className = "col-3";
+    includeDeleteCol.id = `columnToDelete${post["_id"]}`
+    deleteButton.className = "btn btn-danger my-1";
+    deleteButton.type = "button";
+    deleteButton.style.margin = "-1 em";
+    deleteButton.id = `deleteButtonFor${post["_id"]};`
+
     // Where they should fit in the HTML
+    includeDeleteCol.appendChild(deleteButton);
     dateANDLikesRow.append(datesCol);
     dateANDLikesRow.append(likesCol);
     postDiv.appendChild(usernameRow);
     postDiv.appendChild(textPostRow);
     postDiv.appendChild(dateANDLikesRow);
+    postDiv.appendChild(includeDeleteCol);
 
     fillContentIntoDivs(post, usernameRow, textPostRow, datesCol, likesCol);
 
     // the parent DIV where all the posts are going to be nested in
     document.getElementById("displayPosts_ALLUsers").appendChild(postDiv);
+
+    // adding the functionality to delete ANY post 
+    document.getElementById(deleteButton.id).onclick = function () {
+        fetch(`${api}/auth/post${post["_id"]}`, {
+            method: "DELETE"
+        });
+    }
 }
 
 // each post is an object
