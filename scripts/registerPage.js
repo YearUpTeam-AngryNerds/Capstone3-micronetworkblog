@@ -3,7 +3,7 @@
 window.onload = () => {
     document.getElementById("register").onclick = (event) => {
         console.log("Hello")
-        // event.preventDefault();
+       
         const fullName = document.getElementById("name").value;
         const username = document.getElementById("user").value;
         const password = document.getElementById("pw").value;
@@ -26,6 +26,7 @@ window.onload = () => {
             })
             .catch(err => console.log("Something went bad"));
         } else {
+            //if the user doesn't fill in any of the input fields
             console.log("Give me complete input");
         }
             
