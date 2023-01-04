@@ -1,17 +1,17 @@
 /* Posts Page JavaScript */
 "use strict";
-
+const loginData = getLoginData();
 window.onload = function () {
 
     //get the button that logs out the user and execute that functionality when clicked
-    // document.getElementById("logoutButton").onclick = logout;
+    document.getElementById("logoutButton").onclick = logout;
     //display all posts
     displayContent();
 }
 function displayContent() {
     // The starter function should return an object with the token property since the user is logged in
-    const loginData = getLoginData();
-    
+
+
     const bodyData = {
         method: "GET",
         headers: {
@@ -42,57 +42,61 @@ function createPostElements(post) {
         likesDropdownCol = document.createElement("div"),
         deleteAndLikeRow = document.createElement("div"),
         deleteButtonCol = document.createElement("div"),
-        emptySpaceCol = document.createElement("div"),
+        emptySpaceCol_1 = document.createElement("div"),
+        emptySpaceCol_2 = document.createElement("div"),
         likeButtonCol = document.createElement("div"),
         deleteButton = document.createElement("button"),
-        likeButton = document.createElement("button");
+        likeButton = document.createElement("button"),
+        userID = post["_id"].slice(-5, -1);
 
 
     // Give the elements their pclasses
-    postDiv.classList.add("row");
-    postDiv.id = post["_id"].substring(-4);
+    postDiv.className = "row my-4";
+    postDiv.id = userID;
 
     usernameRow.classList.add("row");
-    usernameRow.id = post["username"] + post["_id"].substring(-4);
+    usernameRow.id = post["username"] + "_" + userID;
 
     textPostRow.classList.add("row");
-    textPostRow.id = `textPost${post["_id"].substring(-4)}`;
+    textPostRow.id = `textPost_${userID}`;
 
     dateANDLikesRow.classList.add("row");
-    dateANDLikesRow.id = "dateAndLikes" + post["_id"].substring(-4);
+    dateANDLikesRow.id = "dateAndLikes_" + userID;
 
-    datesCol.className = "col-5 col-md-4 p-0";
-    datesCol.id = "dateFor" + post["_id"].substring(-4);
-    likesDropdownCol.className = "col ms-5";
-    likesDropdownCol.id = "likesFor" + post["_id"].substring(-4);
+    datesCol.className = "col-6 col-md-4 p-0";
+    datesCol.id = "dateFor_" + userID;
+    likesDropdownCol.className = "col-3 ms-5";
+    likesDropdownCol.id = "likesFor_" + userID;
+    emptySpaceCol_1.className = "col";
 
-    deleteAndLikeRow.className = "row my-1";
-    deleteAndLikeRow.id = `columnToDelete${post["_id"].substring(-4, -1)}`;
+    deleteAndLikeRow.className = "row mt-2";
+    deleteAndLikeRow.id = `columnToDeleteAndLike_${userID}`;
 
     deleteButtonCol.className = "col-3";
     likeButtonCol.className = "col-1";
-    emptySpaceCol.className = "col";
+    emptySpaceCol_2.className = "col";
 
 
     deleteButton.className = "btn btn-danger";
     deleteButton.type = "button";
-    deleteButton.style.margin = "-1 em";
-    deleteButton.id = `deleteButtonFor${post["_id"]};`;
+    // deleteButton.style.margin = "-1 em";
+    deleteButton.id = `deleteButtonFor_${userID};`;
     deleteButton.textContent = "DELETE";
 
     likeButton.className = "btn btn-info";
     likeButton.type = "button";
-    likeButton.id = `likeButtonFor${post["_id"]}`;
+    likeButton.id = `likeButtonFor_${userID}`;
     likeButton.textContent = "LIKE";
 
     // Where they should fit in the HTML
     deleteButtonCol.appendChild(deleteButton);
     likeButtonCol.appendChild(likeButton);
     deleteAndLikeRow.appendChild(deleteButtonCol);
-    deleteAndLikeRow.appendChild(emptySpaceCol);
+    deleteAndLikeRow.appendChild(emptySpaceCol_2);
     deleteAndLikeRow.appendChild(likeButtonCol);
 
     dateANDLikesRow.append(datesCol);
+    dateANDLikesRow.append(emptySpaceCol_1);
     dateANDLikesRow.append(likesDropdownCol);
     postDiv.appendChild(usernameRow);
     postDiv.appendChild(textPostRow);
@@ -107,8 +111,16 @@ function createPostElements(post) {
 
     // adding the functionality to delete ANY post 
     document.getElementById(deleteButton.id).onclick = function () {
-        fetch(`${api}/auth/post${post["_id"]}`, {
-            method: "DELETE"
+        const deleteData = {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${loginData.token}`
+            }
+        }
+        fetch(`${api}/api/posts/${post["_id"]}`, deleteData)
+        .then(response => response.json)
+        .then(success => {
+            document.getElementById("displayPosts_ALLUsers").removeChild(postDiv);
         });
     }
 
@@ -116,23 +128,26 @@ function createPostElements(post) {
 
 // each post is an object
 function fillContentIntoDivs(post, usernameRow, textPostRow, datesCol, likesDropdownCol) {
+
+
     for (let details in post) {
+
         switch (details) {
-            case "text":
-                usernameRow.innerHTML = post.details;
-                break;
             case "username":
-                textPostRow.innerHTML = post.details;
+                usernameRow.innerHTML = post[details];
+                break;
+            case "text":
+                textPostRow.innerHTML = post[details];
                 break;
             case "createdAt":
-                const date = new Date(post.details);
-                datesCol.innerHTML = `Posted ${date.toLocaleDateString()} at ${date.toLocaleTimeString()}(UTC Time)`;
+                const date = new Date(post[details]);
+                datesCol.innerHTML = `Posted ${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`;
                 break;
             case "likes":
                 likesDropdown(post, likesDropdownCol);
-                break;
         }
     }
+
 }
 
 function likesDropdown(post, likesDropdownCol) {
