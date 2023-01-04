@@ -4,16 +4,18 @@
 window.onload = function () {
 
     //get the button that logs out the user and execute that functionality when clicked
-    document.getElementById("logoutButton").onclick = logout;
+    // document.getElementById("logoutButton").onclick = logout;
     //display all posts
     displayContent();
 }
 function displayContent() {
     // The starter function should return an object with the token property since the user is logged in
+    const loginData = getLoginData();
+    
     const bodyData = {
         method: "GET",
         headers: {
-            Authorization: `Bearer ${getLoginData().token}`
+            Authorization: `Bearer ${loginData.token}`
         }
     }
 
@@ -21,13 +23,13 @@ function displayContent() {
         .then(response => response.json())
         .then(allData => {
             //allData is the parent object
-            const allPosts = allData.posts;
+            // const allPosts = allData.posts;
             //Access the posts property, which stores an array of objects, each holding data of one post
-            for (let post of allPosts) {
+            for (let post of allData) {
                 // for each post created, add the elements it needs
                 createPostElements(post);
             }
-        })
+        });
 }
 
 function createPostElements(post) {
