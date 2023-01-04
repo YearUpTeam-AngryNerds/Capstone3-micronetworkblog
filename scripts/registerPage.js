@@ -21,7 +21,5 @@ window.onload = () => {
                 window.location.assign("login.html");
             })
             .catch(err => console.log("Something went bad"));
-
-
     }
 }
