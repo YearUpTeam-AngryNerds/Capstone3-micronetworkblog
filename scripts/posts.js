@@ -50,24 +50,24 @@ function createPostElements(post) {
 
     // Give the elements their pclasses
     postDiv.classList.add("row");
-    postDiv.id = post["_id"];
+    postDiv.id = post["_id"].substring(-4);
 
     usernameRow.classList.add("row");
-    usernameRow.id = post["username"] + post["_id"];
+    usernameRow.id = post["username"] + post["_id"].substring(-4);
 
     textPostRow.classList.add("row");
-    textPostRow.id = `textPost${post["_id"]}`;
+    textPostRow.id = `textPost${post["_id"].substring(-4)}`;
 
     dateANDLikesRow.classList.add("row");
-    dateANDLikesRow.id = "dateAndLikes" + post["_id"];
+    dateANDLikesRow.id = "dateAndLikes" + post["_id"].substring(-4);
 
     datesCol.className = "col-5 col-md-4 p-0";
-    datesCol.id = "dateFor" + post["_id"];
+    datesCol.id = "dateFor" + post["_id"].substring(-4);
     likesDropdownCol.className = "col ms-5";
-    likesDropdownCol.id = "likesFor" + post["_id"];
+    likesDropdownCol.id = "likesFor" + post["_id"].substring(-4);
 
     deleteAndLikeRow.className = "row my-1";
-    deleteAndLikeRow.id = `columnToDelete${post["_id"]}`;
+    deleteAndLikeRow.id = `columnToDelete${post["_id"].substring(-4, -1)}`;
 
     deleteButtonCol.className = "col-3";
     likeButtonCol.className = "col-1";
@@ -78,10 +78,12 @@ function createPostElements(post) {
     deleteButton.type = "button";
     deleteButton.style.margin = "-1 em";
     deleteButton.id = `deleteButtonFor${post["_id"]};`;
+    deleteButton.textContent = "DELETE";
 
     likeButton.className = "btn btn-info";
     likeButton.type = "button";
     likeButton.id = `likeButtonFor${post["_id"]}`;
+    likeButton.textContent = "LIKE";
 
     // Where they should fit in the HTML
     deleteButtonCol.appendChild(deleteButton);
