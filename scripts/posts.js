@@ -20,7 +20,10 @@ function displayContent() {
     }
 
     fetch(`${api}/api/posts`, bodyData)
-        .then(response => response.json())
+        .then(
+            response => 
+            response.json()
+            )
         .then(allData => {
             //allData is the parent object
             // const allPosts = allData.posts;
@@ -103,11 +106,8 @@ function createPostElements(post) {
     postDiv.appendChild(dateANDLikesRow);
     postDiv.appendChild(deleteAndLikeRow);
 
-    fillContentIntoDivs(post, usernameRow, textPostRow, datesCol, likesDropdownCol);
-
-    // the parent DIV where all the posts are going to be nested in
-    document.getElementById("displayPosts_ALLUsers").appendChild(postDiv);
-
+     // the parent DIV where all the posts are going to be nested in
+     document.getElementById("displayPosts_ALLUsers").appendChild(postDiv);
 
     // adding the functionality to delete ANY post 
     document.getElementById(deleteButton.id).onclick = function () {
@@ -118,17 +118,37 @@ function createPostElements(post) {
             }
         }
         fetch(`${api}/api/posts/${post["_id"]}`, deleteData)
-        .then(response => response.json)
-        .then(success => {
+        .then(response => {
             document.getElementById("displayPosts_ALLUsers").removeChild(postDiv);
         });
     }
 
+    // adding the functionality to like a post
+    document.getElementById(likeButton.id).onclick = () => {
+        
+        const postIdObject = {
+            postId: post["_id"]
+        };
+        
+        const formData = {
+            method: "POST",
+            body: JSON.stringify(postIdObject),
+            headers: {
+                Authorization : `Bearer ${loginData.token}`,
+                "Content-Type": "application/json"
+            }
+        };
+        fetch(`${api}/api/likes`, formData)
+        .then(data => console.log(data.username))
+    }
+    //fill the divs with the appropriate content from
+    fillContentIntoDivs(post, usernameRow, textPostRow, datesCol, likesDropdownCol);
+
+   
 }
 
 // each post is an object
 function fillContentIntoDivs(post, usernameRow, textPostRow, datesCol, likesDropdownCol) {
-
 
     for (let details in post) {
 
@@ -164,3 +184,6 @@ function likesDropdown(post, likesDropdownCol) {
     }
     likesDropdownCol.appendChild(listUsersLiked);
 }
+
+
+
