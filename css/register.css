@@ -12,8 +12,9 @@
 }
 
 body{
-    background-color: #fafafa!important;
+    background-color: #ec1818!important;
 }
+
 
 .container{
     margin-top: 20px;
@@ -91,7 +92,7 @@ button img{
 
 }
 .btn-primary{
-    background-color: #3897f0!important;
+    background-color: #2573bd!important;
     border: 1px solid #3897f0!important;
     height: 10px;
 }
