@@ -25,7 +25,7 @@
     <!-- Run BEFORE page is finished loading (before window.onload): -->
     <script src="/scripts/auth.js"></script>
     <script>
-            // if (isLoggedIn() === false) window.location.replace("login.html");
+            if (isLoggedIn() === false) window.location.replace("login.html");
     </script>
 
 </head>
@@ -208,7 +208,7 @@
             <label for="create-post" class="btn btn-primary">Create Post</label>
         </div>
         <!---------------------------------------------------------MIDDLE----------------------------------------------------------------------->
-        <div class="middle">
+        <div id="displayPosts_ALLUsers" class="middle">
 
         </div>
 

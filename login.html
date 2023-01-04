@@ -14,10 +14,7 @@
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-
-    <!-- Global CSS (CSS rules you want applied to all pages) -->
-    <link rel="stylesheet" href="/global.css">
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">>
 
     <!-- Page-specific CSS -->
     <link rel="stylesheet" href="css/index.css">
@@ -27,7 +24,7 @@
     <!-- Run BEFORE page is finished loading (before window.onload): -->
     <script src="scripts/auth.js"></script>
     <script>
-        if (isLoggedIn() === true) window.location.replace("/posts.html");
+        if (isLoggedIn() === true) window.location.replace("posts.html");
     </script>
 </head>
 
@@ -96,7 +93,7 @@
                     <form id="login-form">
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
-                            <input id="username" type="text" class="form-control max-form-control" minlength="7"
+                            <input id="username" type="text" class="form-control max-form-control" minlength="3"
                                 required>
                         </div>
 
@@ -108,7 +105,7 @@
                                 required>
                         </div>
 
-                        <input type="submit" class="btn btn-primary" value="Log in">
+                        <input id="loginButton" type="submit" class="btn btn-primary" value="Log in">
                         <p id="error"></p>
                     </form>
                 </div>
