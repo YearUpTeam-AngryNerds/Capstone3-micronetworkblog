@@ -2,10 +2,14 @@
 
  
 footer {
+    position: relative;
+   
+    bottom: 5;
     background-color: #f8f8f8;
     color: #999;
     font-family: "Helvetica Neue", sans-serif;
     font-size: 13px;
+
 }
 
 footer nav ul {
@@ -14,7 +18,8 @@ footer nav ul {
     align-items: center;
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding: 3;
+    display: end;
 }
 
 footer nav ul li {
@@ -73,9 +78,14 @@ body {
     color: var(--color-dark);
     background: var(--color-light);
     overflow-x: hidden;
+    position: sticky;
+    min-height: 100vh;
+   
+
+    
 }
 
-/* General styles */
+/*================================================ General styles================================================ */
 .container {
     width: 80%;
     margin: 0 auto;
@@ -120,7 +130,7 @@ color: white;
     color: var(--color-gray);
 }
 
-/*------------------ USER NAVBAR -----------*/
+/*===============================================================USER NAVBAR =======================================================================*/
 #usernav {
     width: 100%;
     background: var(--color-white);
@@ -160,7 +170,7 @@ color: white;
     gap: 2rem;
 }
 
-/* MAIN */
+/*=================================================================== MAIN CONTAINER=================================================== */
 main {
     position: relative;
     top: 5.4rem;
@@ -173,7 +183,7 @@ main .container {
  position: relative;
 }
 
-/* LEFT */
+/*================================================================= LEFT CONTAINER===================================================== */
 main .container .left {
     height: max-content;
     position: sticky;
@@ -190,7 +200,7 @@ main .container .left .profile {
     width: 100%;
 }
 
-/* ---------------SIDEBAR----------- */
+/*========================================================================SIDEBAR======================================================== */
 .left .sidebar {
     margin-top: 1rem;
     background: var(--color-white);
@@ -268,7 +278,7 @@ main .container .left .profile {
     text-align: center;
     padding: 1rem 0;
 }
-/* ----------------------------- NOTIFS POPUP --------------- */ 
+/*============================================================NOTIFS POPUP ================================================================*/ 
 .left .notifications-popup {
     position: absolute;
     top: 0;
@@ -299,7 +309,7 @@ main .container .left .profile {
     margin-bottom: 1rem;
 }
 
-/* --------------------------------------------- MIDDLE STORIES */ 
+/*============================================================ MIDDLE STORIES================================================================== */ 
 .middle .stories {
     display: flex;
     justify-content: space-between;
@@ -366,7 +376,7 @@ main .container .left .profile {
     align-self: start;
     border: 2px solid var(--color-primary);
 }
-/* ----------------------------------------CREATE POST ---------------------- */
+/* =============================================================CREATE POST=================================================*/
 .middle .create-post {
     width: 100%;
     display: flex;
@@ -377,7 +387,7 @@ main .container .left .profile {
     padding: 0.4rem var(--color-padding);
     border-radius: var(--border-radius);
 }
-/* ----------------------------------------POSTS -------------------------- */ 
+/*======================================================POSTS================================================================= */ 
 .middle .feeds .feed {
     background: var(--color-white);
     border-radius: var(--card-border-radius);
@@ -434,7 +444,7 @@ main .container .left .profile {
     margin-left: 0.5rem;
 }
 
-/* =================== RIGHT ============================= */
+/* =================================== RIGHT ===============================================================================*/
 main .container .right {
     height: max-content;
     position: sticky;
@@ -549,3 +559,50 @@ right: 0;
     display: flex;
     gap: 1rem;
 }
+
+/*============================ SMALL LAPTOPS AND BIG TABLETS================================== */
+@media screen and (max-width: 1200px) {
+    .container {
+        width: 96%
+}
+
+main .container {
+    grid-template-columns: 5rem auto 30vw;
+    gap: 1rem;
+}
+
+.left {
+    width: 5rem;
+    z-index: 5;
+}
+
+main .container .left .profile {
+    display: none;
+}
+
+.sidebar h3 {
+    display: none;
+}
+
+.left .btn {
+    display: none;
+}
+}
+
+/*============================ SMALL TABLETS & PHONES================================== */
+@media screen and (max-width: 992px) {
+    main .container {
+        grid-template-columns: 0 auto 5rem;
+        gap: 0;
+    }
+    main .container .left {
+        grid-column: 3/4;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+
+        }
+
+    }
+    
+
