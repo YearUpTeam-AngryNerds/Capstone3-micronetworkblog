@@ -1,12 +1,11 @@
-<!-- Prevent access to the page unless the visitor is logged in -->
-<!-- Provide a link to the profile page -->
-<!-- Include a working Logout button: a logout() function is provided -->
-<!-- Display posts from all users -->
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,39 +19,6 @@
 
 <body>
     <header>
-        
-       <nav id="bootstrapnav" class="navbar navbar-expand-lg bg-light">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="login.html">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="registration.html">Registration</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="posts.html">Posts</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="profile.html">Profile</a>
-                        </li>
-                    </ul>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
-                </div>
-            </div>
-        </nav>
-        
-        <!------------------------------------------------------Users nav bar for website interface---------------------------------------->
-        
         <nav id="usernav">
             <div class="container">
                 <h2 class="log">
@@ -69,40 +35,40 @@
                         <img src="images/ddpropic.png" alt="profile-picture1">
                     </div>
                 </div>
-           </div>
+            </div>
         </nav>
     </header>
-   <!-----------------------------------------------------------------MAIN------------------------------------------------------------------------->
-    
-   <main>
+
+    <main>
         <div class="container">
-            <!---------------------------------------------------------LEFT--------------------------------------------------------------------->
+            <!----=====================LEFT=====================================-->
             <div class="left">
-               <a class="profile">
+                <a class="profile">
                     <div class="profile-photo">
-                        <img src="images/ddpropic.PNG" alt="profile picture1">
+                        <img src="images/ddpropic.png" alt="profile pic1">
                     </div>
                     <div class="handle">
-                      <h4>Deavion Danielle</h4>  
-                      <p class="text-muted"> 
-                        @dd.mac</p>
+                        <h4>Deavion Danielle</h4>
+                        <p class="text-muted">
+                            @dd.mac
+                        </p>
                     </div>
-               </a> 
-            
-               <!--------------------------------------------------SIDEBAR------------------------------------------------------------------------>
-              <div class="sidebar">
+                </a>
+                <!--====================SIDEBAR===================================-->
+                <div class="sidebar">
                     <a class="menu-item active">
-                        <span><i class="uil uil-home"></i></span><h3>Home</h3>
+                        <span><i class="uil uil-home"></i></span>
+                        <h3>Home</h3>
                     </a>
-
                     <a class="menu-item">
-                        <span><i class="uil uil-compass"></i></span><h3>Explore</h3>
+                        <span><i class="uil uil-compass"></i></span>
+                        <h3>Explore</h3>
                     </a>
+                    <a class="menu-item">
+                        <span><i class="uil uil-bell"><small class="notification-count">40</small></i></span>
+                        <h3>Notifications</h3>
 
-                    <a class="menu-item" id="notifications">
-                        <span><i class="uil uil-envelope-alt"><small class="notification-count">9+</small></i></span><h3>Notifications</h3>
-
-                        <!--------------------------------------------NOTIFS POPUP-------------------------------------------------->
+                        <!--================NOTIFS POPUP===============================-->
                         <div class="notifications-popup">
                             <div>
                                 <div class="profile-photo">
@@ -116,7 +82,7 @@
 
                             <div>
                                 <div class="profile-photo">
-                                    <img src="images/" alt="profile pic3">
+                                    <img src="images/phantpic.png" alt="profile pic3">
                                 </div>
                                 <div class="notification-body">
                                     <b>Phantasia Phillips</b> commented on a post you were tagged in
@@ -146,7 +112,7 @@
 
                             <div>
                                 <div class="profile-photo">
-                                    <img src="images/" alt="profile pic6">
+                                    <img src="images/tashipic.png" alt="profile pic6">
                                 </div>
                                 <div class="notification-body">
                                     <b>Tashi Sherpa</b> commented on your post
@@ -159,51 +125,236 @@
                                     <img src="images/" alt="profile pic7">
                                 </div>
                                 <div class="notification-body">
-                                    <b>Richard Perez </b> accepted your friend request
+                                    <b>Richard Perez</b> accepted your friend request
                                     <small class="text-muted">4 DAYS AGO</small>
                                 </div>
                             </div>
 
                         </div>
-                    </a>
-                    <a class="menu-item" id="messages-notifications">
-                        <span><i class="uil uil-envelope-alt"><small class="notification-count">40</small></i></span><h3>Messages</h3>
+                        <!--===================================END OF NOTIFS POPUP=============-->
                     </a>
                     <a class="menu-item">
-                        <span><i class="uil uil-bookmark"></i></span><h3>Bookmarks</h3>
+                        <span><i class="uil uil-envelope-alt"><small class="notification-count">40</small></i></span>
+                        <h3>Messages</h3>
                     </a>
                     <a class="menu-item">
-                        <span><i class="uil uil-chart-line"></i></span><h3>Anayltics</h3>
+                        <span><i class="uil uil-bookmark"></i></span>
+                        <h3>Bookmarks</h3>
                     </a>
                     <a class="menu-item">
-                        <span><i class="uil uil-palette"></i></span><h3>Theme</h3>
+                        <span><i class="uil uil-chart-line"></i></span>
+                        <h3>Analytics</h3>
                     </a>
                     <a class="menu-item">
-                        <span><i class="uil uil-setting"></i></span><h3>Settings</h3>
+                        <span><i class="uil uil-palette"></i></span>
+                        <h3>Themes</h3>
                     </a>
-                </div>  
+                    <a class="menu-item">
+                        <span><i class="uil uil-settings"></i></span>
+                        <h3>Settings</h3>
+                    </a>
+                </div>
+                <!--=================================END OF SIDEBAR===============================-->
+                <label for="create-post" class="btn btn-primary">Create Post</label>
             </div>
 
-          <!------------------------------------------------------END OF SIDEBAR------------------------------------------------------------------>
-            <label for="create-post" class="btn btn-primary">Create Post</label>
-            </div>
-            <!---------------------------------------------------------MIDDLE----------------------------------------------------------------------->
+            <!--=================================END OF LEFT==================================-->
+
+            <!--======================================MIDDLE=======================================-->
+
             <div class="middle">
-              
+                <!--===================================STORIES====================================-->
+
+                <div class="stories">
+                    <div class="story">
+                        <div class="profile-photo">
+                            <img src="images/" alt="profile photo8">
+                        </div>
+                        <p class="name">Your Story</p>
+                    </div>
+                </div>
+
+                <div class="stories">
+                    <div class="story">
+                        <div class="profile-photo">
+                            <img src="images/" alt="profile photo9">
+                        </div>
+                        <p class="name">Matt M.</p>
+                    </div>
+                </div>
+
+                <div class="stories">
+                    <div class="story">
+                        <div class="profile-photo">
+                            <img src="images/" alt="profile photo10">
+                        </div>
+                        <p class="name">Jasmine Sinkler.</p>
+                    </div>
+                </div>
+
+                <div class="stories">
+                    <div class="story">
+                        <div class="profile-photo">
+                            <img src="images/" alt="profile photo11">
+                        </div>
+                        <p class="name">Cece T.</p>
+                    </div>
+
+                    <div class="stories">
+                        <div class="story">
+                            <div class="profile-photo">
+                                <img src="images/" alt="profile photo12">
+                            </div>
+                            <p class="name">Isaiah B.</p>
+                        </div>
+                    </div>
+                    <!--===================END OF STORIES==================================-->
+                    <form class="create-post">
+                        <div class="profile-photo">
+                            <img src="images/ddpropic.png" alt="Profile pic1">
+                        </div>
+                        <input id="create-post" type="text" placeholder="What's on your mind Deavion?">
+                        <input type="submit" value="Post" class="btn btn-primary">
+                    </form>
+
+                    <!--====================FEEDS===========================================-->
+
+                    <!--====================FEED1============================================-->
+                    <div class="feed">
+                        <div class="feed">
+                            <div class="head">
+                                <div class="user">
+                                    <div class="profile-photo">
+                                        <img src="images/" alt="profile pic13">
+                                    </div>
+
+                                    <div class="info">
+                                        <h3>Deavion Danielle</h3>
+                                        <small>Miami, 15 MINUTES AGO</small>
+                                    </div>
+                                </div>
+
+                                <span class="edit">
+                                    <i class="uil uil-ellipses-h"></i>
+                                </span>
+
+                            </div>
+
+                            <div class="photo">
+                                <img src="images/" alt="photo">
+                            </div>
+
+                            <div id="useractionbtn" class="action-button">
+                                <div class="interaction-buttons">
+                                    <span><i class="uil uil-heart"></i></span>
+                                    <span><i class="uil uil-comment-dots"></i></span>
+                                    <span><i class="uil uil-share-alt"></i></span>
+
+                                </div>
+
+                                <div class="bookmark">
+                                    <span><i class="uil uil-bookmark-full"></i></span>
+
+                                </div>
+                            </div>
+
+                            <div id="userlikes" class="liked-by">
+                                <span><img src="images/" alt="picture"></span>
+                                <span><img src="images/" alt="picture"></span>
+                                <span><img src="images/" alt="picture"></span>
+                                <p>Liked by <b>Matty M.</b> and <b>300 others</b></p>
+                            </div>
+
+                            <div class="caption">
+                                <p><b>Deavion D.</b>The only trippin I do is when it comes to vacay <span
+                                        class="hash-tag">#VacationMode</span></p>
+                            </div>
+
+                            <div class="comments text-muted">View all 200 comments</div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--========================RIGHT==========================================-->
+                <div class="right">
+                    <div class="messages">
+                        <div class="heading">
+                            <h4>Messages</h4><i class="uil uil-edit"></i>
+                        </div>
+                        <!--================SEARCHBAR======================================-->
+                        <div class="search-bar">
+                            <i class="uil uil-search"></i>
+                            <input id="message-search" type="search" placeholder="Search messages">
+                        </div>
+
+                        <!--================MESSAGES CATEGORY================================-->
+                        <div class="category">
+                            <h6 class="active">Primary</h6>
+                            <h6>General</h6>
+                            <h6 class="message-requests"> Requests(30)</h6>
+                        </div>
+
+                        <!--==================MESSAGES========================================-->
+                        <div class="message">
+                            <div class="profile-photo">
+                                <img src="images/" alt="">
+                            </div>
+                            <div class="message-body">
+                                <h5>Anjali B.</h5>
+                                <p class="text-muted"> Girl, did you understand the Javascript??!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--================END OF MESSAGES======================================-->
+
+
+                    <!--===================FRIEND REQUESTS====================================-->
+                    <div class="friend-requests">
+                        <h4>Requests</h4>
+                        <div class="request">
+                            <div class="info">
+                                <div class="profile-photo">
+                                    <img src="images/" alt="profile photo">
+                                </div>
+
+                                <div>
+                                    <h5> Alina A.</h5>
+                                    <p class="text-muted">18 mutual friends</p>
+                                </div>
+                            </div>
+
+                            <div class="action">
+                                <button class="btn btn-primary">
+                                    Accept
+                                </button>
+
+                                <button class="btn btn-primary">
+                                    Decline
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
             </div>
-          
-            <!----------------------------------------------------------RIGHT-------------------------------------------------------------------->
-            <div class="right">
-            </div>
-            
-        </div>
     </main>
 
-    
 
-   
 
-    <footer>
+
+
+
+
+
+
+
+
+
+
+    <!---- <footer>
         <div class="container">
             <nav>
                 <ul>
@@ -220,15 +371,18 @@
               <li><a href="#">Legal</a></li>
             </ul>
         </div>
+        ---->
 
-        <!--Third Party-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js"></script>
+    <!--Third Party-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js"></script>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
 
-        <script src="scripts/posts.js"></script>
+    <script src="scripts/posts.js"></script>
 
     </footer>
-
 </body>
+
 </html>
