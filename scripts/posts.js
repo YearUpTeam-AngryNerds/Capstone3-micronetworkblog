@@ -9,19 +9,16 @@ const headers = {
 
 window.onload = function () {
 
-    //get the button that logs out the user and execute that functionality when clicked
+    //let the button that logs out the user and execute that functionality when clicked
     document.getElementById("logoutButton").onclick = logout;
     //display all posts
-    displayContent();
+
+    document.getElementById("chooseList").onchange = sortByOption;
+
 }
+
 function displayContent() {
-    // The starter function should return an object with the token property since the user is logged in
 
-
-    const bodyData = {
-        method: "GET",
-        headers: headers
-    }
 
     fetch(`${api}/api/posts`, bodyData)
         .then(
@@ -36,6 +33,7 @@ function displayContent() {
                 // for each post created, add the elements it needs
                 // createPostElements(post);
                 createFeedPerPost(post);
+                // sortByOption(allData);
             }
         });
 }
@@ -163,7 +161,6 @@ function createFeedPerPost(post) {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(likeId);
                     likeButton.classList.remove("btn-danger");
                 });
 
@@ -183,7 +180,6 @@ function createFeedPerPost(post) {
                 .then(data => {
                     likeId = data["_id"];
                     likeButton.classList.add("btn-danger");
-                    console.log(likeId);
                 });
         }
     });
@@ -203,3 +199,38 @@ function createFeedPerPost(post) {
     });
 }
 
+function sortByOption() {
+    const optionSelected = document.getElementById("chooseList").value;
+    // The starter function should return an object with the token property since the user is logged in
+    const bodyData = {
+        method: "GET",
+        headers: headers
+    }
+    fetch(`${api}/api/posts`, bodyData)
+        .then(
+            response =>
+                response.json()
+        )
+        .then(allData => {
+            let sortedPosts;
+            switch (optionSelected) {
+                case "Recent":
+                    console.log(optionSelected);
+                    sortedPosts = allData.sort((x, y) => x["createdAt"].localCompare(y["createdAt"]));
+                    break;
+                case "Author":
+                    console.log(optionSelected);
+                    sortedPosts = allData.sort((x, y) => x["username"].localCompare(y["username"]));
+                    break;
+                case "Most Liked":
+                    console.log(optionSelected);
+                    sortedPosts = allData.sort((x, y) => x["likes"].localCompare(y["likes"]));
+                    break;
+            }
+            for (let post of sortedPosts) {
+                createFeedPerPost(post);
+            }
+        });
+
+
+}
