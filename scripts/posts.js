@@ -148,7 +148,8 @@ function createFeedPerPost(post) {
     feedPostDiv.appendChild(deleteButtonRow);
 
     // append the feed to main/parent
-    const parentFeeds = document.getElementById("feeds");
+    // const parentFeeds = document.getElementById("feeds");
+    const parentFeeds = document.querySelector(".feeds");
     parentFeeds.appendChild(feedPostDiv);
 
 
