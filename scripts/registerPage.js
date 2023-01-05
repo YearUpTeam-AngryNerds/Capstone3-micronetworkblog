@@ -1,5 +1,7 @@
 "use strict";
 
+let darkmode_toggle = document.querySelector('#darkmode-toggle')
+
 window.onload = () => {
     document.getElementById("register").onclick = (event) => {
         console.log("Hello")
@@ -31,4 +33,14 @@ window.onload = () => {
         }
             
     }
+}
+
+
+// darkmode toggle
+
+darkmode_toggle.onclick = (e) => {
+   e.preventDefault()
+   let body = document.querySelector('body')
+   body.classList.toggle('dark')
+   darkmode_toggle.innerHTML = body.classList.contains('dark') ? 'lightmode' : 'Darkmode' 
 }
