@@ -1,6 +1,12 @@
 /* Posts Page JavaScript */
 "use strict";
+
 const loginData = getLoginData();
+const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${loginData.token}`
+}
+
 window.onload = function () {
 
     //get the button that logs out the user and execute that functionality when clicked
@@ -14,9 +20,7 @@ function displayContent() {
 
     const bodyData = {
         method: "GET",
-        headers: {
-            Authorization: `Bearer ${loginData.token}`
-        }
+        headers: headers
     }
 
     fetch(`${api}/api/posts`, bodyData)
@@ -37,83 +41,83 @@ function displayContent() {
 }
 
 function createPostElements(post) {
-    // create the elements to display the post
-    const postDiv = document.createElement("div"),
-        usernameRow = document.createElement("div"),
-        textPostRow = document.createElement("div"),
-        dateANDLikesRow = document.createElement("div"),
-        datesCol = document.createElement("div"),
-        likesDropdownCol = document.createElement("div"),
-        deleteAndLikeRow = document.createElement("div"),
-        deleteButtonCol = document.createElement("div"),
-        emptySpaceCol_1 = document.createElement("div"),
-        emptySpaceCol_2 = document.createElement("div"),
-        likeButtonCol = document.createElement("div"),
-        deleteButton = document.createElement("button"),
-        likeButton = document.createElement("button"),
-        spanLikeBtn = document.createElement("span"),
-        iconLikeButton = document.createElement("i"),
-        messageForButtons = document.createElement("div"),
-        userID = post["_id"].slice(-5, -1);
+    // // create the elements to display the post
+    // const postDiv = document.createElement("div"),
+    //     usernameRow = document.createElement("div"),
+    //     textPostRow = document.createElement("div"),
+    //     dateANDLikesRow = document.createElement("div"),
+    //     datesCol = document.createElement("div"),
+    //     likesDropdownCol = document.createElement("div"),
+    //     deleteAndLikeRow = document.createElement("div"),
+    //     deleteButtonCol = document.createElement("div"),
+    //     emptySpaceCol_1 = document.createElement("div"),
+    //     emptySpaceCol_2 = document.createElement("div"),
+    //     likeButtonCol = document.createElement("div"),
+    //     deleteButton = document.createElement("button"),
+    //     likeButton = document.createElement("button"),
+    //     spanLikeBtn = document.createElement("span"),
+    //     iconLikeButton = document.createElement("i"),
+    //     messageForButtons = document.createElement("div"),
+    //     userID = post["_id"].slice(-5, -1);
 
 
-    // Give the elements their pclasses
-    messageForButtons.classList.add("row");
-    postDiv.className = "row my-4";
-    postDiv.id = userID;
+    // // Give the elements their pclasses
+    // messageForButtons.classList.add("row");
+    // postDiv.className = "row my-4";
+    // postDiv.id = userID;
 
-    usernameRow.classList.add("row");
-    usernameRow.id = post["username"] + "_" + userID;
+    // usernameRow.classList.add("row");
+    // usernameRow.id = post["username"] + "_" + userID;
 
-    textPostRow.classList.add("row");
-    textPostRow.id = `textPost_${userID}`;
+    // textPostRow.classList.add("row");
+    // textPostRow.id = `textPost_${userID}`;
 
-    dateANDLikesRow.classList.add("row");
-    dateANDLikesRow.id = "dateAndLikes_" + userID;
+    // dateANDLikesRow.classList.add("row");
+    // dateANDLikesRow.id = "dateAndLikes_" + userID;
 
-    datesCol.className = "col-6 col-md-4 p-0";
-    datesCol.id = "dateFor_" + userID;
-    likesDropdownCol.className = "col-3 ms-5";
-    likesDropdownCol.id = "likesFor_" + userID;
-    emptySpaceCol_1.className = "col";
+    // datesCol.className = "col-6 col-md-4 p-0";
+    // datesCol.id = "dateFor_" + userID;
+    // likesDropdownCol.className = "col-3 ms-5";
+    // likesDropdownCol.id = "likesFor_" + userID;
+    // emptySpaceCol_1.className = "col";
 
-    deleteAndLikeRow.className = "row mt-2";
-    deleteAndLikeRow.id = `columnToDeleteAndLike_${userID}`;
+    // deleteAndLikeRow.className = "row mt-2";
+    // deleteAndLikeRow.id = `columnToDeleteAndLike_${userID}`;
 
-    deleteButtonCol.className = "col-3";
-    likeButtonCol.className = "col-1";
-    emptySpaceCol_2.className = "col";
+    // deleteButtonCol.className = "col-3";
+    // likeButtonCol.className = "col-1";
+    // emptySpaceCol_2.className = "col";
 
 
-    deleteButton.className = "btn btn-danger";
-    deleteButton.type = "button";
-    // deleteButton.style.margin = "-1 em";
-    deleteButton.id = `deleteButtonFor_${userID};`;
-    deleteButton.textContent = "DELETE";
+    // deleteButton.className = "btn btn-danger";
+    // deleteButton.type = "button";
+    // // deleteButton.style.margin = "-1 em";
+    // deleteButton.id = `deleteButtonFor_${userID};`;
+    // deleteButton.textContent = "DELETE";
 
-    iconLikeButton.className = "uil uil-heart";
-    likeButton.className = "btn btn-info";
-    likeButton.type = "button";
-    likeButton.id = `likeButtonFor_${userID}`;
-    // likeButton.textContent = "LIKE";
+    // iconLikeButton.className = "uil uil-heart";
+    // likeButton.className = "btn btn-info";
+    // likeButton.type = "button";
+    // likeButton.id = `likeButtonFor_${userID}`;
+    // // likeButton.textContent = "LIKE";
 
-    // Where they should fit in the HTML
-    spanLikeBtn.appendChild(iconLikeButton);
-    likeButton.appendChild(spanLikeBtn);
-    deleteButtonCol.appendChild(deleteButton);
-    likeButtonCol.appendChild(likeButton);
-    deleteAndLikeRow.appendChild(deleteButtonCol);
-    deleteAndLikeRow.appendChild(emptySpaceCol_2);
-    deleteAndLikeRow.appendChild(likeButtonCol);
+    // // Where they should fit in the HTML
+    // spanLikeBtn.appendChild(iconLikeButton);
+    // likeButton.appendChild(spanLikeBtn);
+    // deleteButtonCol.appendChild(deleteButton);
+    // likeButtonCol.appendChild(likeButton);
+    // deleteAndLikeRow.appendChild(deleteButtonCol);
+    // deleteAndLikeRow.appendChild(emptySpaceCol_2);
+    // deleteAndLikeRow.appendChild(likeButtonCol);
 
-    dateANDLikesRow.append(datesCol);
-    dateANDLikesRow.append(emptySpaceCol_1);
-    dateANDLikesRow.append(likesDropdownCol);
-    postDiv.appendChild(usernameRow);
-    postDiv.appendChild(textPostRow);
-    postDiv.appendChild(dateANDLikesRow);
-    postDiv.appendChild(deleteAndLikeRow);
-    postDiv.appendChild(messageForButtons);
+    // dateANDLikesRow.append(datesCol);
+    // dateANDLikesRow.append(emptySpaceCol_1);
+    // dateANDLikesRow.append(likesDropdownCol);
+    // postDiv.appendChild(usernameRow);
+    // postDiv.appendChild(textPostRow);
+    // postDiv.appendChild(dateANDLikesRow);
+    // postDiv.appendChild(deleteAndLikeRow);
+    // postDiv.appendChild(messageForButtons);
 
     // the parent DIV where all the posts are going to be nested in
     document.getElementById("displayPosts_ALLUsers").appendChild(postDiv);
@@ -135,54 +139,54 @@ function createPostElements(post) {
     }
 
     // adding the functionality to like a post
-    document.getElementById(likeButton.id).onclick = () => {
+    // document.getElementById(likeButton.id).onclick = () => {
 
-        const postIdObject = {
-            postId: post["_id"]
-        };
-        const formData = {
-            method: "POST",
-            body: JSON.stringify(postIdObject),
-            headers: {
-                Authorization: `Bearer ${loginData.token}`,
-                "Content-Type": "application/json"
-            }
-        };
-        fetch(`${api}/api/likes`, formData)
-            .then(response => response.json())
-            .then(data => {
-                // TODO- add the user to the like array of the post immediately
-                messageForButtons.innerHTML = "LIKED!";
-            });
-    }
+    //     const postIdObject = {
+    //         postId: post["_id"]
+    //     };
+    //     const formData = {
+    //         method: "POST",
+    //         body: JSON.stringify(postIdObject),
+    //         headers: {
+    //             Authorization: `Bearer ${loginData.token}`,
+    //             "Content-Type": "application/json"
+    //         }
+    //     };
+    //     fetch(`${api}/api/likes`, formData)
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             // TODO- add the user to the like array of the post immediately
+    //             messageForButtons.innerHTML = "LIKED!";
+    //         });
+    // }
     //fill the divs with the appropriate content from
-    fillContentIntoDivs(post, usernameRow, textPostRow, datesCol, likesDropdownCol);
+    // fillContentIntoDivs(post, usernameRow, textPostRow, datesCol, likesDropdownCol);
 
 
 }
 
 // each post is an object
-function fillContentIntoDivs(post, usernameRow, textPostRow, datesCol, likesDropdownCol) {
+// function fillContentIntoDivs(post, usernameRow, textPostRow, datesCol, likesDropdownCol) {
 
-    for (let details in post) {
+//     for (let details in post) {
 
-        switch (details) {
-            case "username":
-                usernameRow.innerHTML = post[details];
-                break;
-            case "text":
-                textPostRow.innerHTML = post[details];
-                break;
-            case "createdAt":
-                const date = new Date(post[details]);
-                datesCol.innerHTML = `Posted ${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`;
-                break;
-            case "likes":
-                likesDropdown(post, likesDropdownCol);
-        }
-    }
+//         switch (details) {
+//             case "username":
+//                 usernameRow.innerHTML = post[details];
+//                 break;
+//             case "text":
+//                 textPostRow.innerHTML = post[details];
+//                 break;
+//             case "createdAt":
+//                 const date = new Date(post[details]);
+//                 datesCol.innerHTML = `Posted ${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`;
+//                 break;
+//             case "likes":
+//                 likesDropdown(post, likesDropdownCol);
+//         }
+//     }
 
-}
+// }
 
 function likesDropdown(post, likesDropdownCol) {
     // add the dropdown when the likes property is found in the post object
@@ -214,26 +218,29 @@ function createFeedPerPost(post) {
 
     // second group - buttons
     const userButtonsDiv = document.createElement("div"),
-    interactionButtons = document.createElement("div"),
-    bookmarkDiv = document.createElement("div"),
-    heartSpan = document.createElement("span"),
-    commentSpan = document.createElement("span"),
-    shareSpan = document.createElement("span"),
-    bookmarkSpan = document.createElement("span"),
-    heartIcon = document.createElement("i"),
-    commentsIcon = document.createElement("i"),
-    shareIcon = document.createElement("i"),
-    bookmarkIcon = document.createElement("i");
-    
+        interactionButtons = document.createElement("div"),
+        bookmarkDiv = document.createElement("div"),
+        likeButton = document.createElement("button"),
+        heartSpan = document.createElement("span"),
+        commentSpan = document.createElement("span"),
+        shareSpan = document.createElement("span"),
+        bookmarkSpan = document.createElement("span"),
+        heartIcon = document.createElement("i"),
+        commentsIcon = document.createElement("i"),
+        shareIcon = document.createElement("i"),
+        bookmarkIcon = document.createElement("i");
+
     // third, fourth, fifth group - likes, caption, comments
     const userLikeDiv = document.createElement("div"),
-    likesPara = document.createElement("p"), 
-    captionDiv = document.createElement("div"),
-    textPara = document.createElement("p"),  
-    commentsDiv = document.createElement("div");
-   
-    // classes assigned
+        likesPara = document.createElement("p"),
+        captionDiv = document.createElement("div"),
+        textPara = document.createElement("p"),
+        commentsDiv = document.createElement("div"),
+        deleteButtonRow = document.createElement("div"),
+        deleteButton = document.createElement("button"),
+        messageDeleteBtn = document.createElement("p");
 
+    // classes and other attributes assigned
     // each post has one class feed div
     feedPostDiv.className = "feed";
 
@@ -251,6 +258,8 @@ function createFeedPerPost(post) {
     commentsIcon.className = "uil uil-comment-dots";
     shareIcon.className = "uil uil-share-alt";
     bookmarkIcon.className = "uil uil-bookmark-full";
+    likeButton.className = "btn";
+
 
     // third, fourth, fifth groups - (likes, caption, comments) 
     userLikeDiv.className = "liked-by";
@@ -258,6 +267,12 @@ function createFeedPerPost(post) {
     commentsDiv.className = "comments text-muted";
     commentsDiv.innerHTML = "View all comments";
     textPara.innerHTML = `  <b>${post["username"]}</b>${post["text"]}`;
+    deleteButton.className = "btn btn-danger";
+    deleteButton.textContent = "DELETE";
+
+    // ids
+    likeButton.id = `likePost${post["_id"].slice(-4, -1)}`;
+    deleteButton.id = `deletePost${post["_id"].slice(-4, -1)}`;
 
     // append the inner elements to :
     // 1st group (head)
@@ -270,9 +285,10 @@ function createFeedPerPost(post) {
 
     // second group (buttons)
     heartSpan.appendChild(heartIcon);
+    likeButton.appendChild(heartSpan);
     commentSpan.appendChild(commentsIcon);
     shareSpan.appendChild(shareIcon);
-    interactionButtons.appendChild(heartSpan);
+    interactionButtons.appendChild(likeButton);
     interactionButtons.appendChild(commentSpan);
     interactionButtons.appendChild(shareSpan);
     bookmarkSpan.appendChild(bookmarkIcon);
@@ -280,9 +296,11 @@ function createFeedPerPost(post) {
     userButtonsDiv.appendChild(interactionButtons);
     userButtonsDiv.appendChild(bookmarkDiv);
 
-    // third group - likes
+    // third/fourth/fifth group - likes
     userLikeDiv.appendChild(likesPara);
     captionDiv.appendChild(textPara);
+    deleteButtonRow.appendChild(deleteButton);
+    deleteButtonRow.appendChild(messageDeleteBtn);
 
     // append the groups to one feed div - class feed
     feedPostDiv.appendChild(headDiv);
@@ -290,7 +308,31 @@ function createFeedPerPost(post) {
     feedPostDiv.appendChild(userLikeDiv);
     feedPostDiv.appendChild(captionDiv);
     feedPostDiv.appendChild(commentsDiv);
+    feedPostDiv.appendChild(deleteButtonRow);
 
     // append the feed to main/parent
     document.querySelector(".feeds").appendChild(feedPostDiv);
+
+    likeButton.addEventListener("click", function () {
+        if (likeButton.classList.contains("btn-danger")) {
+            likeButton.classList.remove("btn-danger");
+        } else {
+
+            // make  object for the requested body
+            const postIdObject = {
+                postId: post["_id"]
+            };
+            // set up the call with the second argument to the fetch
+            const requestBody = {
+                method: "POST",
+                body: JSON.stringify(postIdObject),
+                headers: headers
+            }
+            console.log(`${api}/api/likes`)
+            fetch(`${api}/api/likes`, requestBody)
+            .then(response => response.json())
+            .then(data => likeButton.classList.remove("btn-danger"));
+        }
+    });
 }
+
