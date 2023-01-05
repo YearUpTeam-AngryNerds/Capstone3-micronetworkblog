@@ -147,6 +147,7 @@ img {
     margin: 1rem;
     color: #fff;
     cursor: pointer;
+    margin-bottom: -10rem;
 }
 
 .feed-item:hover .gallery-item-info,
