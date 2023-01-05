@@ -21,16 +21,17 @@ function displayContent() {
 
     fetch(`${api}/api/posts`, bodyData)
         .then(
-            response => 
-            response.json()
-            )
+            response =>
+                response.json()
+        )
         .then(allData => {
             //allData is the parent object
             // const allPosts = allData.posts;
             //Access the posts property, which stores an array of objects, each holding data of one post
             for (let post of allData) {
                 // for each post created, add the elements it needs
-                createPostElements(post);
+                // createPostElements(post);
+                createFeedPerPost(post);
             }
         });
 }
@@ -114,8 +115,8 @@ function createPostElements(post) {
     postDiv.appendChild(deleteAndLikeRow);
     postDiv.appendChild(messageForButtons);
 
-     // the parent DIV where all the posts are going to be nested in
-     document.getElementById("displayPosts_ALLUsers").appendChild(postDiv);
+    // the parent DIV where all the posts are going to be nested in
+    document.getElementById("displayPosts_ALLUsers").appendChild(postDiv);
 
     // adding the functionality to delete ANY post 
     document.getElementById(deleteButton.id).onclick = function () {
@@ -126,16 +127,16 @@ function createPostElements(post) {
             }
         }
         fetch(`${api}/api/posts/${post["_id"]}`, deleteData)
-        .then(response => {
-            messageForButtons.innerHTML = "DELETED";
-            document.getElementById("displayPosts_ALLUsers").replaceChild(messageForButtons, postDiv);
-            
-        });
+            .then(response => {
+                messageForButtons.innerHTML = "DELETED";
+                document.getElementById("displayPosts_ALLUsers").replaceChild(messageForButtons, postDiv);
+
+            });
     }
 
     // adding the functionality to like a post
     document.getElementById(likeButton.id).onclick = () => {
-        
+
         const postIdObject = {
             postId: post["_id"]
         };
@@ -143,21 +144,21 @@ function createPostElements(post) {
             method: "POST",
             body: JSON.stringify(postIdObject),
             headers: {
-                Authorization : `Bearer ${loginData.token}`,
+                Authorization: `Bearer ${loginData.token}`,
                 "Content-Type": "application/json"
             }
         };
         fetch(`${api}/api/likes`, formData)
-        .then(response => response.json())
-        .then(data => {
-            // TODO- add the user to the like array of the post immediately
-            messageForButtons.innerHTML = "LIKED!";
-        });
+            .then(response => response.json())
+            .then(data => {
+                // TODO- add the user to the like array of the post immediately
+                messageForButtons.innerHTML = "LIKED!";
+            });
     }
     //fill the divs with the appropriate content from
     fillContentIntoDivs(post, usernameRow, textPostRow, datesCol, likesDropdownCol);
 
-   
+
 }
 
 // each post is an object
@@ -198,5 +199,98 @@ function likesDropdown(post, likesDropdownCol) {
     likesDropdownCol.appendChild(listUsersLiked);
 }
 
+function createFeedPerPost(post) {
+    // 5 groups within one feed
+    // 1st group - head
+    const feedPostDiv = document.createElement("div"),
+        headDiv = document.createElement("div"),
+        userGeneralDiv = document.createElement("div"),
+        userDetailsInfo = document.createElement("div"),
+        userNameHeading = document.createElement("h3"),
+        timeStampInfo = document.createElement("small"),
+        editSpan = document.createElement("span"),
+        iconDots = document.createElement("i"),
+        date = new Date(post["createdAt"]);
 
+    // second group - buttons
+    const userButtonsDiv = document.createElement("div"),
+    interactionButtons = document.createElement("div"),
+    bookmarkDiv = document.createElement("div"),
+    heartSpan = document.createElement("span"),
+    commentSpan = document.createElement("span"),
+    shareSpan = document.createElement("span"),
+    bookmarkSpan = document.createElement("span"),
+    heartIcon = document.createElement("i"),
+    commentsIcon = document.createElement("i"),
+    shareIcon = document.createElement("i"),
+    bookmarkIcon = document.createElement("i");
+    
+    // third, fourth, fifth group - likes, caption, comments
+    const userLikeDiv = document.createElement("div"),
+    likesPara = document.createElement("p"), 
+    captionDiv = document.createElement("div"),
+    textPara = document.createElement("p"),  
+    commentsDiv = document.createElement("div");
+   
+    // classes assigned
 
+    // each post has one class feed div
+    feedPostDiv.className = "feed";
+
+    //  - 1st group (head)
+    headDiv.className = "head";
+    userGeneralDiv.className = "user";
+    userDetailsInfo.className = "info";
+    editSpan.className = "edit";
+    iconDots.className = "uil uil-ellipsis-h";
+    userNameHeading.textContent = post["username"];
+    timeStampInfo.textContent = `Posted ${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`;
+
+    // second group (buttons)
+    heartIcon.className = "uil uil-heart";
+    commentsIcon.className = "uil uil-comment-dots";
+    shareIcon.className = "uil uil-share-alt";
+    bookmarkIcon.className = "uil uil-bookmark-full";
+
+    // third, fourth, fifth groups - (likes, caption, comments) 
+    userLikeDiv.className = "liked-by";
+    captionDiv.className = "caption";
+    commentsDiv.className = "comments text-muted";
+    commentsDiv.innerHTML = "View all comments";
+    textPara.innerHTML = `  <b>${post["username"]}</b>${post["text"]}`;
+
+    // append the inner elements to :
+    // 1st group (head)
+    userDetailsInfo.appendChild(userNameHeading);
+    userDetailsInfo.appendChild(timeStampInfo);
+    editSpan.appendChild(iconDots);
+    userGeneralDiv.appendChild(userDetailsInfo);
+    userGeneralDiv.appendChild(editSpan);
+    headDiv.appendChild(userGeneralDiv);
+
+    // second group (buttons)
+    heartSpan.appendChild(heartIcon);
+    commentSpan.appendChild(commentsIcon);
+    shareSpan.appendChild(shareIcon);
+    interactionButtons.appendChild(heartSpan);
+    interactionButtons.appendChild(commentSpan);
+    interactionButtons.appendChild(shareSpan);
+    bookmarkSpan.appendChild(bookmarkIcon);
+    bookmarkDiv.appendChild(bookmarkSpan);
+    userButtonsDiv.appendChild(interactionButtons);
+    userButtonsDiv.appendChild(bookmarkDiv);
+
+    // third group - likes
+    userLikeDiv.appendChild(likesPara);
+    captionDiv.appendChild(textPara);
+
+    // append the groups to one feed div - class feed
+    feedPostDiv.appendChild(headDiv);
+    feedPostDiv.appendChild(userButtonsDiv);
+    feedPostDiv.appendChild(userLikeDiv);
+    feedPostDiv.appendChild(captionDiv);
+    feedPostDiv.appendChild(commentsDiv);
+
+    // append the feed to main/parent
+    document.querySelector(".feeds").appendChild(feedPostDiv);
+}
