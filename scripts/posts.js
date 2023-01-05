@@ -50,10 +50,14 @@ function createPostElements(post) {
         likeButtonCol = document.createElement("div"),
         deleteButton = document.createElement("button"),
         likeButton = document.createElement("button"),
+        spanLikeBtn = document.createElement("span"),
+        iconLikeButton = document.createElement("i"),
+        messageForButtons = document.createElement("div"),
         userID = post["_id"].slice(-5, -1);
 
 
     // Give the elements their pclasses
+    messageForButtons.classList.add("row");
     postDiv.className = "row my-4";
     postDiv.id = userID;
 
@@ -86,12 +90,15 @@ function createPostElements(post) {
     deleteButton.id = `deleteButtonFor_${userID};`;
     deleteButton.textContent = "DELETE";
 
+    iconLikeButton.className = "uil uil-heart";
     likeButton.className = "btn btn-info";
     likeButton.type = "button";
     likeButton.id = `likeButtonFor_${userID}`;
-    likeButton.textContent = "LIKE";
+    // likeButton.textContent = "LIKE";
 
     // Where they should fit in the HTML
+    spanLikeBtn.appendChild(iconLikeButton);
+    likeButton.appendChild(spanLikeBtn);
     deleteButtonCol.appendChild(deleteButton);
     likeButtonCol.appendChild(likeButton);
     deleteAndLikeRow.appendChild(deleteButtonCol);
@@ -105,6 +112,7 @@ function createPostElements(post) {
     postDiv.appendChild(textPostRow);
     postDiv.appendChild(dateANDLikesRow);
     postDiv.appendChild(deleteAndLikeRow);
+    postDiv.appendChild(messageForButtons);
 
      // the parent DIV where all the posts are going to be nested in
      document.getElementById("displayPosts_ALLUsers").appendChild(postDiv);
@@ -119,7 +127,9 @@ function createPostElements(post) {
         }
         fetch(`${api}/api/posts/${post["_id"]}`, deleteData)
         .then(response => {
-            document.getElementById("displayPosts_ALLUsers").removeChild(postDiv);
+            messageForButtons.innerHTML = "DELETED";
+            document.getElementById("displayPosts_ALLUsers").replaceChild(messageForButtons, postDiv);
+            
         });
     }
 
@@ -129,7 +139,6 @@ function createPostElements(post) {
         const postIdObject = {
             postId: post["_id"]
         };
-        
         const formData = {
             method: "POST",
             body: JSON.stringify(postIdObject),
@@ -139,7 +148,11 @@ function createPostElements(post) {
             }
         };
         fetch(`${api}/api/likes`, formData)
-        .then(data => console.log(data.username))
+        .then(response => response.json())
+        .then(data => {
+            // TODO- add the user to the like array of the post immediately
+            messageForButtons.innerHTML = "LIKED!";
+        });
     }
     //fill the divs with the appropriate content from
     fillContentIntoDivs(post, usernameRow, textPostRow, datesCol, likesDropdownCol);
