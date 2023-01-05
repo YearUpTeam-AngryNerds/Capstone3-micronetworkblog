@@ -1,5 +1,7 @@
 "use strict";
 
+let darkmode_toggle = document.querySelector('#darkmode-toggle')
+
 window.onload = () => {
     document.getElementById("registerForm").onsubmit = (event) => {
         //prevent the form from refreshing the page
@@ -22,4 +24,14 @@ window.onload = () => {
             })
             .catch(err => console.log("Something went bad"));
     }
+}
+
+
+// darkmode toggle
+
+darkmode_toggle.onclick = (e) => {
+   e.preventDefault()
+   let body = document.querySelector('body')
+   body.classList.toggle('dark')
+   darkmode_toggle.innerHTML = body.classList.contains('dark') ? 'lightmode' : 'Darkmode' 
 }
