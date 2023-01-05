@@ -282,3 +282,36 @@ body {
     line-height: 18px;
     margin: 0 8px 12px 8px;
 }
+
+
+.goto {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.goto p {
+    font-size: 14px;
+    margin: 15px;
+    text-align: center;
+}
+
+
+.footer {
+    padding-bottom: 52px;
+    padding-top: 24px;
+}
+
+.links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.links a {
+    text-decoration: none;
+    color: var(--txt-second-color);
+    font-size: 13px;
+    line-height: 18px;
+    margin: 0 8px 12px 8px;
+}
