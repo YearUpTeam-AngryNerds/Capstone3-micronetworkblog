@@ -1,6 +1,7 @@
 /* INDEX CSS */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap'); 
-{
+
+*{
     box-sizing: border-box;
     /* Sizing helper: See Workbook 1b, page 2-33. */
 
@@ -12,6 +13,114 @@
     */
     /* outline: 1px dotted red; */
 } 
+
+/* Main Container */
+
+ * {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    outline: none;
+}
+
+body {
+    width: 100%;
+    background-color: #f0f2f5;
+}
+
+form {
+    background-color: #fff;
+    position: absolute;
+    width: 320px;
+    height: 270px;
+    padding: 10px 5px 20px 5px;
+    margin: -10vh 850px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 6px -7px;
+}
+
+*new-users {
+    padding: 30;
+    margin-top: 30;
+}
+
+input[type='text'], input[type='password'] {
+    display: black;
+    background-color: #fff;
+    margin: auto;
+    border: 1.5px solid rgb(200, 200, 200);
+    width: 200px;
+    padding: 10px 40px;
+    border-radius: 5px;
+    text-align: center; 
+    color: black;
+    font-size: 15px;
+    cursor: pointer;
+
+}
+
+button {
+    border: none;
+    color: white;
+    margin: auto;
+    width: 283px;
+    display: block;
+    border-radius: 5px;
+    padding: 10px 0;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+f-pws {
+    display: block;
+    width: 200px;
+    margin: auto;
+    color: #1877f2;
+    padding-left: 80px;
+    font-weight: 400;
+}
+
+.sublink h3 {
+    width: 270px;
+    position: relative;
+    color: black;
+    padding: 130px 890px;
+    font-size: 12px;
+    font-weight: 600px;
+
+}
+
+.sublink h3 {
+    color: black;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.anerds-container {
+    width: 200px;
+    margin-left: 300px;
+    margin-top: 30vh;
+
+}
+
+.anerds-container img {
+    width: 250px;
+}
+
+p {
+    font-size: 20px;
+    font-weight: 600;
+    word-spacing: 3px;
+}
+
+
+
+
+
+
+
+
+
 
 footer {
     background-color: #f8f8f8;
