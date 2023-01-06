@@ -2,25 +2,49 @@
 
 "use strict";
 
-const loginForm = document.querySelector("#login");
+//--Login a user
+document.getElementById("submit-btn").onclick = (e) => {
 
-loginForm.onsubmit = function (event) {
-    // Prevent the form from refreshing the page,
-    // as it will do by default when the Submit event is triggered:
-    event.preventDefault();
+    const usernameEntered = document.getElementById("username").value
+    const passwordEntered = document.getElementById("password").value
+    const loggedInUserData = JSON.parse(localStorage.getItem("userData"))
 
-    // We can use loginForm.username (for example) to access
-    // the input element in the form which has the ID of "username".
-    const loginData = {
-        username: loginForm.username.value,
-        password: loginForm.password.value,
+    if ( loggedInUserData == "" ){
+        swal("You're not registered!", {icon: "error"}).then(()=>{
+            window.location.href = 'registration.html'
+        })
+        return false
+    }
+    
+    if ( username == "" ){
+        swal("Enter a username!", {icon: "error"}).then( ()=>{
+            document.getElementById("username").focus()
+        })
+        return false
     }
 
-    // Disables the button after the form has been submitted already:
-    loginForm.loginButton.disabled = true;
+    if ( password == "" ){
+        swal("Enter a password!", {icon: "error"}).then( ()=>{
+            document.getElementById("password").focus()
+        })
+        return false
+    }
 
-    // Time to actually process the login using the function from auth.js!
-    login(loginData);
-};
+    else{
 
+        //--validate supplied username
+        if ( usernameEntered === loggedInUserData.username && loggedInUserData.password === passwordEntered ) {
 
+            //--login now
+            localStorage.setItem("loggedInUser", username)
+
+            swal("Log in successful!", {icon: "success"}).then(()=>{ 
+                window.location.href = 'posts.html'
+            })
+        }
+        else{
+            swal("Wrong username or password entered!", {icon: "error"})
+        }
+        return false
+    }
+}
