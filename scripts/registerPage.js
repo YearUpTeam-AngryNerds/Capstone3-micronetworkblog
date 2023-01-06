@@ -1,46 +1,64 @@
 "use strict";
 
-let darkmode_toggle = document.querySelector('#darkmode-toggle')
+document.getElementById("register").onclick = (e) => {
 
-window.onload = () => {
-    document.getElementById("register").onclick = (event) => {
-        console.log("Hello")
-       
-        const fullName = document.getElementById("name").value;
-        const username = document.getElementById("user").value;
-        const password = document.getElementById("pw").value;
-        const anyEmptyValues = Boolean(fullName) && Boolean(username) && Boolean(password);
-        if(anyEmptyValues){
-            const userData = {
-                username: username,
-                fullName: fullName,
-                password: password
-            };
-            const requestBody = {
-                method: "POST",
-                headers: {  "Content-type" :"application/json" },
-                body: JSON.stringify(userData)
-            };
-            fetch(`${api}/api/users`, requestBody)
-            .then(response => response.json)
-            .then(data => {
-                window.location.assign("login.html");
-            })
-            .catch(err => console.log("Something went bad"));
-        } else {
-            //if the user doesn't fill in any of the input fields
-            console.log("Give me complete input");
-        }
-            
+    const contact = document.getElementById("contact").value;
+    const fullname = document.getElementById("fullname").value;
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    if ( contact == "" ){
+        swal("Enter your email or phone number!", {icon: "error"}).then( ()=>{
+            document.getElementById("contact").focus()
+        })
+        return false
     }
-}
 
+    if ( fullname == "" ){
+        swal("Enter your fullname!", {icon: "error"}).then( ()=>{
+            document.getElementById("fullname").focus()
+        })
+        return false
+    }
 
-// darkmode toggle
+    if ( username == "" ){
+        swal("Enter a username!", {icon: "error"}).then( ()=>{
+            document.getElementById("username").focus()
+        })
+        return false
+    }
 
-darkmode_toggle.onclick = (e) => {
-   e.preventDefault()
-   let body = document.querySelector('body')
-   body.classList.toggle('dark')
-   darkmode_toggle.innerHTML = body.classList.contains('dark') ? 'lightmode' : 'Darkmode' 
+    if ( password == "" ){
+        swal("Enter a password!", {icon: "error"}).then( ()=>{
+            document.getElementById("password").focus()
+        })
+        return false
+    }
+
+    if ( password.length < 6 ){
+        swal("Enter a minimum of 6 characters!", {icon: "error"}).then( ()=>{
+            document.getElementById("password").focus()
+        })
+        return false
+    }
+
+    else{
+
+        const userData = JSON.stringify({
+            "contact": contact,
+            "username": username,
+            "fullname": fullname,
+            "password": password,
+            "loggedIn": true
+        })
+
+        localStorage.setItem("userData", userData)
+        localStorage.setItem("loggedInUser", username)
+        
+        swal("Registration successful!", {icon: "success"}).then(()=>{
+            window.location.href = 'profile.html'
+        })
+
+        return false
+    }
 }
