@@ -18,26 +18,6 @@ window.onload = function () {
     document.getElementById("createPostForm").onsubmit = createPost;
 }
 
-// function displayContent() {
-
-//     fetch(`${api}/api/posts`, bodyData)
-//         .then(
-//             response =>
-//                 response.json()
-//         )
-//         .then(allData => {
-//             //allData is the parent object
-//             // const allPosts = allData.posts;
-//             //Access the posts property, which stores an array of objects, each holding data of one post
-//             for (let post of allData) {
-//                 // for each post created, add the elements it needs
-//                 // createPostElements(post);
-//                 createFeedPerPost(post);
-//                 // sortByOption(allData);
-//             }
-//         });
-// }
-
 function createFeedPerPost(post) {
     // 5 groups within one feed
     // 1st group - head
