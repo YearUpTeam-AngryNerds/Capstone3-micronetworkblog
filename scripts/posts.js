@@ -75,6 +75,7 @@ function createFeedPerPost(post) {
     // classes and other attributes assigned
     // each post has one class feed div
     feedPostDiv.className = "feed";
+    feedPostDiv.id = `user_${post["username"]}_post${post["_id"].slice(-5, -1)}`;
 
     //  - 1st group (head)
     headDiv.className = "head";
@@ -197,7 +198,12 @@ function createFeedPerPost(post) {
 }
 
 function sortByOption() {
+    const allFeedPosts = document.querySelectorAll("[id^='user_']");
     const optionSelected = document.getElementById("sortByList").value;
+    // delete any previous posts before displaying the posts in a new order
+    if(allFeedPosts != null){
+        Array.from(allFeedPosts).forEach(feed => document.querySelector(".feeds").removeChild(feed));
+    }
 
     // The starter function should return an object with the token property since the user is logged in
     const bodyData = {
