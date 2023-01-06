@@ -8,35 +8,32 @@ const headers = {
 }
 
 window.onload = function () {
-
     //let the button that logs out the user and execute that functionality when clicked
     document.getElementById("logoutButton").onclick = logout;
-    //display all posts
-
-    document.getElementById("chooseList").onchange = sortByOption;
-
+    
+    //get the select element with the id of sortByList; assign it the sortByOption handler
+    document.getElementById("sortByList").onchange = sortByOption;
 }
 
-function displayContent() {
+// function displayContent() {
 
-
-    fetch(`${api}/api/posts`, bodyData)
-        .then(
-            response =>
-                response.json()
-        )
-        .then(allData => {
-            //allData is the parent object
-            // const allPosts = allData.posts;
-            //Access the posts property, which stores an array of objects, each holding data of one post
-            for (let post of allData) {
-                // for each post created, add the elements it needs
-                // createPostElements(post);
-                createFeedPerPost(post);
-                // sortByOption(allData);
-            }
-        });
-}
+//     fetch(`${api}/api/posts`, bodyData)
+//         .then(
+//             response =>
+//                 response.json()
+//         )
+//         .then(allData => {
+//             //allData is the parent object
+//             // const allPosts = allData.posts;
+//             //Access the posts property, which stores an array of objects, each holding data of one post
+//             for (let post of allData) {
+//                 // for each post created, add the elements it needs
+//                 // createPostElements(post);
+//                 createFeedPerPost(post);
+//                 // sortByOption(allData);
+//             }
+//         });
+// }
 
 function createFeedPerPost(post) {
     // 5 groups within one feed
@@ -200,7 +197,8 @@ function createFeedPerPost(post) {
 }
 
 function sortByOption() {
-    const optionSelected = document.getElementById("chooseList").value;
+    const optionSelected = document.getElementById("sortByList").value;
+    
     // The starter function should return an object with the token property since the user is logged in
     const bodyData = {
         method: "GET",
@@ -212,25 +210,29 @@ function sortByOption() {
                 response.json()
         )
         .then(allData => {
-            let sortedPosts;
+            // let sortedPosts;
             switch (optionSelected) {
-                case "Recent":
-                    console.log(optionSelected);
-                    sortedPosts = allData.sort((x, y) => x["createdAt"].localCompare(y["createdAt"]));
+                case "recentDates":
+                    
+                    allData.sort((x, y) => {
+                        return x.createdAt.localeCompare(y.createdAt) < 0 ? 1 : x.createdAt.localeCompare(y.createdAt) > 0 ? -1 : 0;
+                    });
                     break;
-                case "Author":
+                case "authorName":
                     console.log(optionSelected);
                     sortedPosts = allData.sort((x, y) => x["username"].localCompare(y["username"]));
                     break;
-                case "Most Liked":
+                case "mostLikes":
                     console.log(optionSelected);
                     sortedPosts = allData.sort((x, y) => x["likes"].localCompare(y["likes"]));
                     break;
             }
-            for (let post of sortedPosts) {
+            for (let post of allData) {
                 createFeedPerPost(post);
             }
-        });
+        });// end of the second then method
 
 
 }
+
+
