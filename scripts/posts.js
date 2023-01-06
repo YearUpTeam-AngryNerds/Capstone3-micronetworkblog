@@ -13,6 +13,9 @@ window.onload = function () {
 
     //get the select element with the id of sortByList; assign it the sortByOption handler
     document.getElementById("sortByList").onchange = sortByOption;
+
+    // create the post and an object once the usesr submits the form
+    document.getElementById("createPostForm").onsubmit = createPost;
 }
 
 // function displayContent() {
@@ -201,7 +204,7 @@ function sortByOption() {
     const allFeedPosts = document.querySelectorAll("[id^='user_']");
     const optionSelected = document.getElementById("sortByList").value;
     // delete any previous posts before displaying the posts in a new order
-    if(allFeedPosts != null){
+    if (allFeedPosts != null) {
         Array.from(allFeedPosts).forEach(feed => document.querySelector(".feeds").removeChild(feed));
     }
 
@@ -228,7 +231,7 @@ function sortByOption() {
                     break;
                 case "mostLikes":
                     allData.sort((x, y) => {
-                        return y["likes"].length - x["likes"].length ;
+                        return y["likes"].length - x["likes"].length;
                     });
                     break;
             }
@@ -237,7 +240,22 @@ function sortByOption() {
             }
         });// end of the second then method
 
-
 }
 
-
+function createPost() {
+    const getText = document.getElementById("create-post").value;
+    const textObject = {
+        text: getText
+    }
+    const requestBody = {
+        method: "POST",
+        body: JSON.stringify(textObject),
+        headers: headers
+    }
+    fetch(`${api}/api/posts`, requestBody)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("submitMessage").textContent = "SUBMITTED";
+        });
+    return false;
+}
