@@ -10,7 +10,7 @@ const headers = {
 window.onload = function () {
     //let the button that logs out the user and execute that functionality when clicked
     document.getElementById("logoutButton").onclick = logout;
-    
+
     //get the select element with the id of sortByList; assign it the sortByOption handler
     document.getElementById("sortByList").onchange = sortByOption;
 }
@@ -198,7 +198,7 @@ function createFeedPerPost(post) {
 
 function sortByOption() {
     const optionSelected = document.getElementById("sortByList").value;
-    
+
     // The starter function should return an object with the token property since the user is logged in
     const bodyData = {
         method: "GET",
@@ -213,18 +213,17 @@ function sortByOption() {
             // let sortedPosts;
             switch (optionSelected) {
                 case "recentDates":
-                    
                     allData.sort((x, y) => {
-                        return x.createdAt.localeCompare(y.createdAt) < 0 ? 1 : x.createdAt.localeCompare(y.createdAt) > 0 ? -1 : 0;
+                        return x["createdAt"].localeCompare(y["createdAt"]) < 0 ? 1 : x.createdAt.localeCompare(y.createdAt) > 0 ? -1 : 0;
                     });
                     break;
                 case "authorName":
-                    console.log(optionSelected);
-                    sortedPosts = allData.sort((x, y) => x["username"].localCompare(y["username"]));
+                    allData.sort((x, y) => x["username"].localeCompare(y["username"]));
                     break;
                 case "mostLikes":
-                    console.log(optionSelected);
-                    sortedPosts = allData.sort((x, y) => x["likes"].localCompare(y["likes"]));
+                    allData.sort((x, y) => {
+                        return y["likes"].length - x["likes"].length ;
+                    });
                     break;
             }
             for (let post of allData) {
